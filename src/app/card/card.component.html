@@ -1,0 +1,31 @@
+<div class="card">
+  <h4 class="card-header" style="display:flex;align-items:flex-end;justify-content:space-between">
+    <span *ngIf="!titleInput && card.title !== ''" (click)="titleInput = true">{{card.title}}</span>
+    <input style="width:50%;" *ngIf="titleInput || card.title === ''" type="text" [(ngModel)]="card.title" (blur)="titleInput = false" />
+    <select clrSelect name="options" [(ngModel)]="card.type">
+    <option value="feature">Feature</option>
+    <option value="bug">Bug</option>
+    <option value="debt">Tech Debt</option>
+    <option value="other">Other</option>
+  </select>
+</h4>
+  <div class="card-block">
+      <div class="card-text">
+        <span *ngIf="!descriptionInput && card.description !== ''" (click)="descriptionInput = true">{{card.description}}</span>
+        <textarea style="height:100%;width:100%" *ngIf="descriptionInput || card.description === ''" [(ngModel)]="card.description" (blur)="descriptionInput = false"></textarea>
+      </div>
+  </div>
+  <div class="card-footer">
+    <div class="btn-group btn-primary btn-icon" style="display:flex;">
+      <button title="Delete" class="btn btn-sm" style="flex:auto;" (click)="delete()">
+        <i class="fas fa-trash"></i>
+      </button>
+      <button title="Complete" class="btn btn-sm" style="flex:auto;">
+        <i class="fas fa-check"></i>
+      </button>
+      <button title="Archive" class="btn btn-sm" style="flex:auto;" >
+        <i class="fas fa-box"></i>
+      </button>
+  </div>
+  </div>
+</div>
