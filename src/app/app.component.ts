@@ -27,27 +27,27 @@ export class AppComponent {
     await db.columns.delete(column.id);
   }
 
-  handleCard(event: any){
+  handleCard(event: any, index: number){
     if(event.type === 'delete'){
-      this.removeCard(event);
+      this.removeCard(event, index);
     }
     if(event.type === 'update'){
-      this.updateCard(event);
+      this.updateCard(event, index);
     }
   }
 
-  removeCard(event: any){
+  removeCard(event: any, index: number){
     db.columns.get(event.card.columnID).then(column => {
       let cards = [...column?.cards ?? []];
-        cards.splice(cards.indexOf(event.card), 1);
+        cards.splice(index, 1);
         db.columns.update(event.card.columnID, {cards: cards});
       })
   }
 
-  updateCard(event: any){
+  updateCard(event: any, index: number){
     db.columns.get(event.card.columnID).then(column => {
       let cards = [...column?.cards ?? []];
-      cards[cards.indexOf(event.card)] = event.card;
+      cards[index] = event.card;
       db.columns.update(event.card.columnID, {cards: cards});
     })
   }

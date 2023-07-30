@@ -1,8 +1,8 @@
-<div class="card">
+<div class="card"  [style.background-color]="card.type==='bug' ? 'pink' : null">
   <h4 class="card-header" style="display:flex;align-items:flex-end;justify-content:space-between">
     <span *ngIf="!titleInput && card.title !== ''" (click)="titleInput = true">{{card.title}}</span>
-    <input style="width:50%;" *ngIf="titleInput || card.title === ''" type="text" [(ngModel)]="card.title" (blur)="titleInput = false" />
-    <select clrSelect name="options" [(ngModel)]="card.type">
+    <input style="width:50%;" *ngIf="titleInput || card.title === ''" type="text" [(ngModel)]="card.title" (blur)="titleInput = false" (ngModelChange)="editBlock = true"/>
+    <select clrSelect name="options" [(ngModel)]="card.type" (ngModelChange)="editBlock = true">
     <option value="feature">Feature</option>
     <option value="bug">Bug</option>
     <option value="debt">Tech Debt</option>
@@ -12,16 +12,21 @@
   <div class="card-block">
       <div class="card-text">
         <span *ngIf="!descriptionInput && card.description !== ''" (click)="descriptionInput = true">{{card.description}}</span>
-        <textarea style="height:100%;width:100%" *ngIf="descriptionInput || card.description === ''" [(ngModel)]="card.description" (blur)="descriptionInput = false"></textarea>
+        <textarea style="height:100%;width:100%" *ngIf="descriptionInput || card.description === ''" [(ngModel)]="card.description" (blur)="descriptionInput = false" (ngModelChange)="editBlock = true"></textarea>
       </div>
   </div>
   <div class="card-footer">
-    <div class="btn-group btn-primary btn-icon" style="display:flex;">
+    <div *ngIf="editBlock" class="btn-group btn-primary btn-icon" style="display:flex;">
+      <button title="Cancel" class="btn btn-sm" style="flex:auto;" (click)="cancel()">
+        <i class="fas fa-times"></i>
+      </button>
+      <button title="Save" class="btn btn-sm" style="flex:auto;" (click)="update()">
+        <i class="fas fa-save"></i>
+      </button>
+    </div>
+      <div *ngIf="!editBlock" class="btn-group btn-primary btn-icon" style="display:flex;">
       <button title="Delete" class="btn btn-sm" style="flex:auto;" (click)="delete()">
         <i class="fas fa-trash"></i>
-      </button>
-      <button title="Complete" class="btn btn-sm" style="flex:auto;">
-        <i class="fas fa-check"></i>
       </button>
       <button title="Archive" class="btn btn-sm" style="flex:auto;" >
         <i class="fas fa-box"></i>

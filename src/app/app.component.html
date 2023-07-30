@@ -14,7 +14,7 @@
       </h1>
       <div cdkDropList (cdkDropListDropped)="drop($event)"
       [cdkDropListData]="column.cards" class="card-block drop-zone" [id]="column.id">
-        <app-card cdkDrag *ngFor="let card of column.cards" [card]="card" (eventHandler)="handleCard($event)"></app-card>
+        <app-card cdkDrag *ngFor="let card of column.cards" [card]="card" (eventHandler)="handleCard($event, column.cards.indexOf(card))"></app-card>
       </div>
       <div class="card-footer">
         <div style="width:100%;justify-content:center;display:flex;">
